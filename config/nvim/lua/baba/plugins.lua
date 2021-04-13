@@ -127,7 +127,8 @@ return require("packer").startup {
     -- Snippets
     -- use 'SirVer/ultisnips'
     -- use 'honza/vim-snippets'
-    use {"norcalli/snippets.nvim", config = [[require'baba.snippets']]}
+    -- use {"norcalli/snippets.nvim", config = [[require'baba.snippets']]}
+    use {"babariviere/snippets.nvim", config = [[require'baba.snippets']]}
 
     -- Project root
     pkg {"airblade/vim-rooter", as = "rooter"}

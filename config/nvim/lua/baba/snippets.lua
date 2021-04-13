@@ -135,6 +135,12 @@ snippets.set_ux(require "snippets.inserters.select")
 
 vim.g.completion_enable_snippet = "snippets.nvim"
 
+local function insert_leave()
+  snippets.abort_snippet()
+end
+
+vim.api.nvim_command("au InsertLeave * lua require('baba.snippets').insert_leave()")
+
 return {
   expand_or_key = function(key)
     if snippets.advance_snippet(1) then
@@ -144,5 +150,6 @@ return {
       return
     end
     vim.fn.feedkeys(key, "n")
-  end
+  end,
+  insert_leave = insert_leave
 }
