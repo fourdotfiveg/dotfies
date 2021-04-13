@@ -169,6 +169,9 @@ for name, config in pairs(servers) do
     return find_lsp_ancestor(fname) or default_config.root_dir(fname)
   end
 
+  config.capabilities = vim.lsp.protocol.make_client_capabilities()
+  config.capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   -- Use new incremental sync by default: https://github.com/neovim/neovim/pull/14079
   if not config.flags then
     config.flags = {}
