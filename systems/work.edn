@@ -1,0 +1,7 @@
+{:name "Work"
+ :root "../modules"
+ :dot "../dot"
+ :os :os/mac
+ :modules #{:editor/neovim
+            :lang/clojure
+            :lang/rust}}
