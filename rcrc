@@ -1,2 +1,0 @@
-EXCLUDES="Brewfile Brewfile.lock.json pkglist.txt _system Babar.bttpreset iTerm2"
-DOTFILES_DIRS="$HOME/src/github.com/babariviere/dotfiles"

@@ -2,10 +2,24 @@
  :root "../modules"
  :dot "../dot"
  :os :os/mac
- :modules #{:editor/neovim
+ :modules #{:core
+            ;; editor
+            :editor/neovim
+            :editor/editorconfig
+            ;; lang
             :lang/clojure
             :lang/clojure/clj-kondo
             :lang/clojure/lein
+            :lang/clojure/poly
+            :lang/js/yarn
             :lang/rust
+            ;; shell
+            :shell/zsh
+            ;; term
+            :term/iterm2
+            ;; tools
+            :tools/brew
             :tools/direnv
-            :tools/git}}
+            :tools/git
+            :tools/gh
+            :tools/tmux}}
