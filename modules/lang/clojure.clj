@@ -1,6 +1,3 @@
-(defmodule clojure
-  :lang/clojure)
-
 (defn clojure-pkg []
   (case os-type
     :os/mac (package "clojure/tools/clojure")
@@ -16,9 +13,9 @@
     :os/mac (package "borkdude/brew/babashka")
     {}))
 
-(add-to-module clojure
-    (clojure-pkg)
-    (package "clojurescript")
-    (clojure-lsp)
-    (babashka))
-               
+(module :lang/clojure
+  (clojure-pkg)
+  (package "clojurescript")
+  (clojure-lsp)
+  (babashka)
+  (link (dot "clojure") (home ".clojure") :recursive true))

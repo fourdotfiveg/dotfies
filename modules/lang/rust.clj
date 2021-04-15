@@ -1,5 +1,4 @@
-(defmodule rust
-  :lang/rust)
-
-(add-to-module rust
-  (package "rust"))
+(module :lang/rust
+  (package "rust")
+  (link (dot "cargo") (home ".cargo") :recursive true)
+  (sh "rustup" "update"))

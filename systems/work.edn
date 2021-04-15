@@ -4,4 +4,8 @@
  :os :os/mac
  :modules #{:editor/neovim
             :lang/clojure
-            :lang/rust}}
+            :lang/clojure/clj-kondo
+            :lang/clojure/lein
+            :lang/rust
+            :tools/direnv
+            :tools/git}}

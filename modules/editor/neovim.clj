@@ -1,6 +1,3 @@
-(defmodule neovim
-  :editor/neovim)
-
-(add-to-module neovim
+(module :editor/neovim
   (package "neovim" :head true)
-  (link (dot "config/nvim") (home ".config/nvim") :recursive true))
+  (link (dot "nvim") (home ".config/nvim") :recursive true))
