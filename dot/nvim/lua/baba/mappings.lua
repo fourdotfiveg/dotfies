@@ -17,8 +17,8 @@ local bindings = {
   },
   s = {["<Tab>"] = {[[<Esc>i<cmd>lua require'baba.snippets'.expand_or_key("<tab>")<CR>]], noremap = true}},
   n = {
-    ["<TAB>"] = {":bnext<CR>", noremap = true},
-    ["<S-TAB>"] = {":bprevious<CR>", noremap = true},
+    ["<TAB>"] = {":BufferNext<CR>", noremap = true},
+    ["<S-TAB>"] = {":BufferPrevious<CR>", noremap = true},
     ["<C-h>"] = {"<C-w>h", noremap = true},
     ["<C-j>"] = {"<C-w>j", noremap = true},
     ["<C-k>"] = {"<C-w>k", noremap = true},
@@ -26,7 +26,7 @@ local bindings = {
     ["<leader><space>"] = {[[<cmd>lua require'telescope.builtin'.find_files{}<CR>]], noremap = true},
     ["<leader>,"] = {[[<cmd>lua require'telescope.builtin'.buffers{}<CR>]], noremap = true},
     ["<leader>;"] = {[[<cmd>lua require'telescope.builtin'.commands{}<CR>]], noremap = true},
-    ["<leader>bd"] = {[[:bdelete<CR>]], noremap = true},
+    ["<leader>bd"] = {[[:BufferDelete<CR>]], noremap = true},
     ["<leader>sb"] = {[[<cmd>lua require'telescope.builtin'.buffers{}<CR>]], noremap = true},
     ["<leader>sp"] = {[[<cmd>lua require'telescope.builtin'.live_grep{}<CR>]], noremap = true}
   },
