@@ -32,8 +32,8 @@ return require("packer").startup {
     use {"wbthomason/packer.nvim", opt = true}
 
     -- Fennel/Conjure/Lisp...
-    -- use "guns/vim-sexp"
-    -- use "tpope/vim-sexp-mappings-for-regular-people"
+    pkg "guns/vim-sexp"
+    use "tpope/vim-sexp-mappings-for-regular-people"
     -- pkg {"liquidz/vim-iced", as = "iced"}
     pkg "Olical/conjure"
     use {"Olical/aniseed", requires = {{"bakpakin/fennel.vim"}}}
@@ -89,6 +89,7 @@ return require("packer").startup {
     use {"nvim-treesitter/nvim-treesitter-refactor"}
     use {"nvim-treesitter/nvim-tree-docs", requires = {{"Olical/aniseed"}}}
     use {"p00f/nvim-ts-rainbow"}
+    use {"diepm/vim-rest-console"}
 
     -- Auto Pairs
     -- pkg {'jiangmiao/auto-pairs', as = 'autopairs'}
@@ -102,6 +103,7 @@ return require("packer").startup {
     use "tjdevries/lsp_extensions.nvim"
     use {"glepnir/lspsaga.nvim", requires = {"neovim/nvim-lspconfig"}}
     -- pkg {"kosayoda/nvim-lightbulb", as = "lightbulb"}
+    pkg {"folke/lsp-trouble.nvim", as = "lsp_trouble"}
 
     -- DAP
     use {{"mfussenegger/nvim-dap", config = [[require'baba.dap']]}, "theHamsta/nvim-dap-virtual-text"}
@@ -212,6 +214,9 @@ return require("packer").startup {
     use "junegunn/fzf"
     use "junegunn/fzf.vim"
     use "fiatjaf/neuron.vim"
+
+    -- Vifm
+    -- pkg {"vifm/vifm.vim", as = "vifm"}
 
     -- Easy align
     pkg {"junegunn/vim-easy-align", as = "easyalign"}

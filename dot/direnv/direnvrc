@@ -1,9 +1,11 @@
-export ASDF_DIRENV_VERSION="system"
-source "$HOME/.asdf/asdf.sh"
+use_asdf() {
+  export ASDF_DIRENV_VERSION="system"
+  source "$HOME/.asdf/asdf.sh"
 
-# Setup asdf
-if [ ! -d "$ASDF_DIR/plugins/direnv" ]; then
-  asdf plugin add direnv
-fi
+  # Setup asdf
+  if [ ! -d "$ASDF_DIR/plugins/direnv" ]; then
+    asdf plugin add direnv
+  fi
 
-source "$(asdf direnv hook asdf)"
+  source_env "$(asdf direnv _asdf_cached_envrc "$@")"
+}

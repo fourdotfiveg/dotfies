@@ -33,7 +33,10 @@ local bindings = {
   t = {
     ["<C-g>"] = {"<C-\\><C-n>", noremap = true}
   },
-  v = {["<"] = {"<gv", noremap = true}, [">"] = {">gv", noremap = true}}
+  v = {["<"] = {"<gv", noremap = true}, [">"] = {">gv", noremap = true}},
+  c = {
+    ["bd"] = {"BufferDelete", noremap = true}
+  }
 }
 
 for map, set in pairs(bindings) do

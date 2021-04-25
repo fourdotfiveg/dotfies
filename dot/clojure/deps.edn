@@ -29,6 +29,12 @@
               :ns-default hf.depstar
               :exec-args {}}
 
+    ;; Polylith
+    :poly {:extra-deps {polylith/clj-poly
+                               {:git/url   "https://github.com/polyfy/polylith.git"
+                                :sha       "65a7918bb6de886cda7a9b8a5fe7dbdf10996bf8"
+                                :deps/root "projects/poly"}}
+           :main-opts  ["-m" "polylith.clj.core.poly-cli.core"]}
 
     ;; REPL
     :repl/rebel-nrepl {:extra-deps {nrepl/nrepl                {:mvn/version "0.8.3"}
@@ -64,36 +70,4 @@
     :morpheus {:extra-deps {thomasa/morpheus {:git/url "https://github.com/benedekfazekas/morpheus.git"
                                               :sha "7f4876ea631a6f5ccee2094d255efd2d1a98ffb6"}}
                :main-opts  ["-m" "thomasa.morpheus.main"]}}}
-
-  ;; Paths
-  ;;   Directories in the current project to include in the classpath
-
-  ;; :paths ["src"]
-
-  ;; External dependencies
-
-  ;; :deps {
-  ;;   org.clojure/clojure {:mvn/version "1.10.2"}
-  ;; }
-
-  ;; Aliases
-  ;;   resolve-deps aliases (-R) affect dependency resolution, options:
-  ;;     :extra-deps - specifies extra deps to add to :deps
-  ;;     :override-deps - specifies a coordinate to use instead of that in :deps
-  ;;     :default-deps - specifies a coordinate to use for a lib if one isn't found
-  ;;   make-classpath aliases (-C) affect the classpath generation, options:
-  ;;     :extra-paths - vector of additional paths to add to the classpath
-  ;;     :classpath-overrides - map of lib to path that overrides the result of resolving deps
-
-  ;; :aliases {
-  ;;   :deps {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.9.863"}}}
-  ;;   :test {:extra-paths ["test"]}
-  ;; }
-
-  ;; Provider attributes
-
-  ;; :mvn/repos {
-  ;;   "central" {:url "https://repo1.maven.org/maven2/"}
-  ;;   "clojars" {:url "https://repo.clojars.org/"}
-  ;; }
 

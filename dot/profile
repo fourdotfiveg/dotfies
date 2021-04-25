@@ -21,3 +21,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/site/pack/packer/start/iced/bin:$PATH"
 
 if [ -e /Users/bastienriviere/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/bastienriviere/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+[ -s "/Users/bastienriviere/.jabba/jabba.sh" ] && source "/Users/bastienriviere/.jabba/jabba.sh"

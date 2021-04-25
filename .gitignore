@@ -1,2 +1,4 @@
 Brewfile.lock.json
 .DS_Store
+/dot/clojure/.cpcache
+/dot/clojure/.lsp
