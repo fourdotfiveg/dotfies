@@ -190,7 +190,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     -- Enable underline, use default values
     underline = true,
     -- Enable virtual text
-    virtual_text = {prefix = "»"},
+    virtual_text = {prefix = "●"},
     signs = true,
     -- Disable a feature
     update_in_insert = false

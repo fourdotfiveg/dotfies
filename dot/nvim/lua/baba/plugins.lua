@@ -34,11 +34,9 @@ return require("packer").startup {
     -- Fennel/Conjure/Lisp...
     pkg "guns/vim-sexp"
     use "tpope/vim-sexp-mappings-for-regular-people"
-    -- pkg {"liquidz/vim-iced", as = "iced"}
     pkg "Olical/conjure"
     use {"Olical/aniseed", requires = {{"bakpakin/fennel.vim"}}}
     use {"Olical/nvim-local-fennel", requires = {{"bakpakin/fennel.vim"}}}
-    -- use "bhurlow/vim-parinfer"
     use {"eraserhd/parinfer-rust", run = "cargo build --release"}
 
     -- Themes
@@ -49,8 +47,6 @@ return require("packer").startup {
     use {"dracula/vim", as = "dracula"}
     use "NLKNguyen/papercolor-theme"
     use "sainnhe/edge"
-
-    use "rktjmp/lush.nvim"
 
     -- Status bar
     -- pkg {'itchyny/lightline.vim', as = 'lightline'}
@@ -76,6 +72,7 @@ return require("packer").startup {
     use "mustache/vim-mustache-handlebars"
     use "vim-crystal/vim-crystal"
     use "earthly/earthly.vim"
+    use "diepm/vim-rest-console"
 
     use {
       "nvim-treesitter/nvim-treesitter",
@@ -89,7 +86,6 @@ return require("packer").startup {
     use {"nvim-treesitter/nvim-treesitter-refactor"}
     use {"nvim-treesitter/nvim-tree-docs", requires = {{"Olical/aniseed"}}}
     use {"p00f/nvim-ts-rainbow"}
-    use {"diepm/vim-rest-console"}
 
     -- Auto Pairs
     -- pkg {'jiangmiao/auto-pairs', as = 'autopairs'}
@@ -102,8 +98,6 @@ return require("packer").startup {
     use "tami5/compe-conjure"
     use "tjdevries/lsp_extensions.nvim"
     use {"glepnir/lspsaga.nvim", requires = {"neovim/nvim-lspconfig"}}
-    -- pkg {"kosayoda/nvim-lightbulb", as = "lightbulb"}
-    pkg {"folke/lsp-trouble.nvim", as = "lsp_trouble"}
 
     -- DAP
     use {{"mfussenegger/nvim-dap", config = [[require'baba.dap']]}, "theHamsta/nvim-dap-virtual-text"}
@@ -122,9 +116,6 @@ return require("packer").startup {
       }
     }
     -- use 'rafcamlet/nvim-luapad'
-
-    -- Flow
-    pkg {"babariviere/flow.nvim", as = "flow"}
 
     -- Snippets
     -- use 'SirVer/ultisnips'
@@ -200,20 +191,11 @@ return require("packer").startup {
     -- Which key
     use "liuchengxu/vim-which-key"
 
-    -- Zen mode
-    pkg {"junegunn/goyo.vim", as = "goyo"}
-    use "junegunn/limelight.vim"
-
     -- Language tool
     -- use 'rhysd/vim-grammarous'
 
     -- Direnv
     use "direnv/direnv.vim"
-
-    -- Neuron
-    use "junegunn/fzf"
-    use "junegunn/fzf.vim"
-    use "fiatjaf/neuron.vim"
 
     -- Vifm
     -- pkg {"vifm/vifm.vim", as = "vifm"}
