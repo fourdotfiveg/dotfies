@@ -23,4 +23,5 @@
            :tools/kap
            :tools/git
            :tools/gh
+           :tools/nix
            :tools/tmux]}

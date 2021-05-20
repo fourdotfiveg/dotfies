@@ -12,7 +12,7 @@ require "nvim-treesitter.configs".setup {
   indent = {enable = true},
   query_linter = {enable = true, use_virtual_text = true, lint_events = {"BufWrite", "CursorHold"}},
   rainbow = {
-    enable = true
+    enable = false
   },
   refactor = {
     highlight_definitions = {enable = false},
@@ -54,7 +54,7 @@ require "nvim-treesitter.configs".setup {
     lsp_interop = {enable = true, peek_definition_code = {["df"] = "@function.outer", ["dF"] = "@class.outer"}}
   },
   tree_docs = {
-    enable = true,
+    enable = false,
     keymaps = {doc_all_in_range = "gdd", doc_node_at_cursor = "gdd", edit_doc_at_cursor = "gde"}
   }
 }

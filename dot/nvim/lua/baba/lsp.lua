@@ -1,21 +1,42 @@
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  require("lsp_signature").on_attach {
+    bind = true,
+    hint_enable = true, -- virtual hint enable
+    hint_prefix = "🐼 ", -- Panda for parameter
+    hint_scheme = "String",
+    handler_opts = {
+      border = "single" -- double, single, shadow, none
+    },
+    use_lspsaga = false
+  }
 
   local opts = {noremap = true, silent = true}
-  vim.api.nvim_buf_set_keymap(0, "n", "gnD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "gnd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "<c-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "gTD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  -- :sort i
+  vim.api.nvim_buf_set_keymap(0, "n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "[e", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "]e", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
   vim.api.nvim_buf_set_keymap(0, "n", "ga", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gh", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   vim.api.nvim_buf_set_keymap(0, "n", "ge", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
   vim.api.nvim_buf_set_keymap(0, "n", "gE", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "]e", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "[e", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", opts)
-  vim.api.nvim_buf_set_keymap(0, "n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gf", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "gTD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
+  vim.api.nvim_buf_set_keymap(0, "n", "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
+  vim.api.nvim_buf_set_keymap(
+    0,
+    "n",
+    "<C-b>",
+    "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>",
+    opts
+  )
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_command("augroup lsp_aucmds")
@@ -23,8 +44,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command("au CursorMoved <buffer> lua vim.lsp.buf.clear_references()")
     vim.api.nvim_command("augroup END")
   end
-
-  vim.api.nvim_command("au CursorHoldI <buffer> lua require('lspsaga.signaturehelp').signature_help()")
 
   vim.b.lsp_client_name = client.name
 
@@ -56,7 +75,13 @@ local sumneko_bin = sumneko_root .. "/bin/macOS/lua-language-server"
 local lsp = require "lspconfig"
 
 local servers = {
-  clojure_lsp = {},
+  clojure_lsp = {
+    capabilities = {
+      signatureHelpProvider = {
+        triggerCharacters = {" "}
+      }
+    }
+  },
   -- diagnosticls = {
   --   filetypes = {"asciidoc", "markdown", "gitcommit", "sh"},
   --   init_options = {
@@ -169,7 +194,7 @@ for name, config in pairs(servers) do
     return find_lsp_ancestor(fname) or default_config.root_dir(fname)
   end
 
-  config.capabilities = vim.lsp.protocol.make_client_capabilities()
+  config.capabilities = vim.tbl_extend("force", config.capabilities or {}, vim.lsp.protocol.make_client_capabilities())
   config.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
   -- Use new incremental sync by default: https://github.com/neovim/neovim/pull/14079

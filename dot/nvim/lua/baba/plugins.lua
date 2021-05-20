@@ -98,6 +98,7 @@ return require("packer").startup {
     use "tami5/compe-conjure"
     use "tjdevries/lsp_extensions.nvim"
     use {"glepnir/lspsaga.nvim", requires = {"neovim/nvim-lspconfig"}}
+    use "ray-x/lsp_signature.nvim"
 
     -- DAP
     use {{"mfussenegger/nvim-dap", config = [[require'baba.dap']]}, "theHamsta/nvim-dap-virtual-text"}
