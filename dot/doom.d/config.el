@@ -9,6 +9,8 @@
 (setq user-full-name "Bastien Riviere"
       user-mail-address "babathriviere@gmail.com")
 
+(setq doom-private-dir "~/src/github.com/babariviere/dotfiles-kap/dot/doom.d")
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -19,7 +21,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Iosevka Baba" :size 12))
+(setq doom-font (font-spec :family "Fira Code" :size 12))
       ;;doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -39,11 +41,12 @@
       doom-localleader-alt-key "M-,")
 
 (after! projectile
-  (setq projectile-project-search-path '("~/src/github.com/babariviere"))
+  (setq projectile-project-search-path '("~/src" "~/src/github.com/babariviere"))
   (setq projectile-project-root-files-functions '(projectile-root-local
                                                   projectile-root-top-down
                                                   projectile-root-bottom-up
                                                   projectile-root-top-down-recurring)))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -60,3 +63,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(after! lsp-mode
+  (setq lsp-elixir-server-command '("~/src/github.com/elixir-lsp/elixir-ls/release/language_server.sh")))

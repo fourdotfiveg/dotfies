@@ -6,6 +6,7 @@
            ;; editor
            :editor/neovim
            :editor/editorconfig
+           ;; :editor/doom
            ;; lang
            :lang/clojure
            :lang/clojure/clj-kondo

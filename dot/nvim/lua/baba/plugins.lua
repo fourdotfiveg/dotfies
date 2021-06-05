@@ -73,6 +73,8 @@ return require("packer").startup {
     use "vim-crystal/vim-crystal"
     use "earthly/earthly.vim"
     use "diepm/vim-rest-console"
+    use "hashivim/vim-hashicorp-tools"
+    use "jvirtanen/vim-hcl"
 
     use {
       "nvim-treesitter/nvim-treesitter",
