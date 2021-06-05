@@ -147,13 +147,25 @@ in {
 
       initExtra = builtins.readFile ../zshrc;
 
+      shellAliases = {
+        ls = "${pkgs.exa}/bin/exa";
+        ll = "ls -l";
+        l = "ls";
+
+        gco = "git co";
+        gs = "git s";
+
+        dup = "docker-compose up";
+        ddn = "docker-compose down";
+      };
+
       plugins = [
         {
           name = "fast-syntax-highlighting";
           src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
         }
         {
-          name = "history-substring-search";
+          name = "zsh-history-substring-search";
           src = "${pkgs.zsh-history-substring-search}/share/zsh/site-functions";
         }
       ];
