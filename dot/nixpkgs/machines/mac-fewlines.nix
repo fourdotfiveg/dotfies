@@ -135,6 +135,75 @@ in {
 
     programs.fzf = { enable = true; };
 
+    programs.gh = {
+      enable = true;
+      aliases = {
+        pc = "pr create";
+        pcd = "pr create -d";
+      };
+      gitProtocol = "ssh";
+    };
+
+    # TODO: programs.git
+    # TODO: programs.htop
+
+    programs.kitty = {
+      enable = false;
+
+      extraConfig = ''
+        font_family Fira Code
+        font_size 12.0
+        disable_ligatures always
+
+        foreground            #f8f8f2
+        background            #22212c
+        selection_foreground  #000000
+        selection_background  #454158
+
+        url_color #005bbb
+
+        # black
+        color0  #454158
+        color8  #504c67
+
+        # red
+        color1  #ff9580
+        color9  #ffaa99
+
+        # green
+        color2  #8aff80
+        color10 #a2ff99
+
+        # yellow
+        color3  #ffff80
+        color11 #ffff99
+
+        # blue
+        color4  #9580ff
+        color12 #aa99ff
+
+        # magenta
+        color5  #ff80bf
+        color13 #ff99cc
+
+        # cyan
+        color6  #80ffea
+        color14 #99ffee
+
+        # white
+        color7  #f8f8f2
+        color15 #ffffff
+
+        # Cursor colors
+        cursor            #7970a9
+        cursor_text_color #feffff
+      '';
+    };
+
+    programs.nix-index.enable = true;
+
+    programs.zoxide = { enable = true; };
+
     programs.zsh = {
       # TODO: write configuration here
       enable = true;
@@ -166,7 +235,9 @@ in {
         }
         {
           name = "zsh-history-substring-search";
-          src = "${pkgs.zsh-history-substring-search}/share/zsh/site-functions";
+          file = "zsh-history-substring-search.zsh";
+          src =
+            "${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search";
         }
       ];
     };
@@ -176,6 +247,15 @@ in {
     name = "bastienriviere";
     home = "/Users/bastienriviere";
   };
+
+  system.activationScripts.applications.text = pkgs.lib.mkForce (''
+    rm -rf ~/Applications/Nix\ Apps
+    mkdir -p ~/Applications/Nix\ Apps
+    for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+    src="$(/usr/bin/stat -f%Y "$app")"
+    cp -r "$src" ~/Applications/Nix\ Apps
+    done
+  '');
 
   system.defaults = {
     finder = {

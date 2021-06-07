@@ -27,8 +27,14 @@
         home-manager.useUserPackages = true;
         home-manager.useGlobalPkgs = true;
 
+        nix.gc = {
+          automatic = true;
+          options = "-d --delete-older-than 7d";
+        };
+
         # nix.package = inputs.nix.packages."x86_64-darwin".nix.overrideAttrs
-        nix.package = inputs.nix.packages."${config.nixpkgs.system}".nix.overrideAttrs
+        nix.package =
+          inputs.nix.packages."${config.nixpkgs.system}".nix.overrideAttrs
           (attrs: {
             doCheck = false;
             doInstallCheck = false;

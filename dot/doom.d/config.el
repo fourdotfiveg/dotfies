@@ -66,3 +66,8 @@
 
 (after! lsp-mode
   (setq lsp-elixir-server-command '("~/src/github.com/elixir-lsp/elixir-ls/release/language_server.sh")))
+
+(use-package! parrot
+  :config
+  (setq parrot-num-rotations nil)
+  (parrot-mode))
