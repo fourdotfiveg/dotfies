@@ -7,7 +7,7 @@ in {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
-    # emacs
+    emacs
   ];
 
   homebrew = {
@@ -65,16 +65,18 @@ in {
   programs.nix-index.enable = true;
 
   services.emacs = {
-    enable = false;
+    enable = true;
     # TODO: Find a way to shorten this path
     package = emacs;
   };
 
-  home-manager.users.bastienriviere = {
+  home-manager.users.bastienriviere = {config, pkgs, ...}: {
     programs.emacs = {
       enable = true;
       package = emacs;
     };
+
+    home.sessionPath = ["$HOME/.emacs.d/bin"];
 
     home.file = {
       ".doom.d" = {
@@ -202,8 +204,6 @@ in {
 
     programs.nix-index.enable = true;
 
-    programs.zoxide = { enable = true; };
-
     programs.zsh = {
       # TODO: write configuration here
       enable = true;
@@ -212,9 +212,13 @@ in {
 
       autocd = true;
       defaultKeymap = "viins";
-      history = { expireDuplicatesFirst = true; };
+      history = { expireDuplicatesFirst = true; share = false; };
 
-      initExtra = builtins.readFile ../zshrc;
+      initExtra = let
+        flow = "${inputs.flow.defaultPackage.${pkgs.system}}/bin/flow";
+      in (builtins.readFile ../zshrc) + ''
+        eval "$(${flow} setup $HOME/src --path ${flow})"
+      '';
 
       shellAliases = {
         ls = "${pkgs.exa}/bin/exa";
@@ -226,6 +230,9 @@ in {
 
         dup = "docker-compose up";
         ddn = "docker-compose down";
+
+        dr = "darwin-rebuild";
+        drs = "darwin-rebuild switch --flake .#Baba-Mac --keep-going";
       };
 
       plugins = [
@@ -248,14 +255,14 @@ in {
     home = "/Users/bastienriviere";
   };
 
-  system.activationScripts.applications.text = pkgs.lib.mkForce (''
-    rm -rf ~/Applications/Nix\ Apps
-    mkdir -p ~/Applications/Nix\ Apps
-    for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
-    src="$(/usr/bin/stat -f%Y "$app")"
-    cp -r "$src" ~/Applications/Nix\ Apps
-    done
-  '');
+  # system.activationScripts.applications.text = pkgs.lib.mkForce (''
+  #   rm -rf ~/Applications/Nix\ Apps
+  #   mkdir -p ~/Applications/Nix\ Apps
+  #   for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+  #   src="$(/usr/bin/stat -f%Y "$app")"
+  #   cp -r "$src" ~/Applications/Nix\ Apps
+  #   done
+  # '');
 
   system.defaults = {
     finder = {

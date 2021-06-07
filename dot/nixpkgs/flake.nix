@@ -9,6 +9,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    flow.url = "path:../../../flow";
 
     # Emacs
     emacs.url = "github:nix-community/emacs-overlay";
@@ -33,12 +34,13 @@
         };
 
         # nix.package = inputs.nix.packages."x86_64-darwin".nix.overrideAttrs
-        nix.package =
-          inputs.nix.packages."${config.nixpkgs.system}".nix.overrideAttrs
-          (attrs: {
-            doCheck = false;
-            doInstallCheck = false;
-          });
+        nix.package = let
+          nix = inputs.nix.packages."${pkgs.system}".nix.overrideAttrs
+            (attrs: {
+              doCheck = false;
+              doInstallCheck = false;
+            });
+        in pkgs.hiPrio nix;
         nix.useSandbox = "relaxed";
         nix.registry = { nixpkgs.flake = nixpkgs; };
         # nix.package = pkgs.nix;
