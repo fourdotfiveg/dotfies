@@ -6,9 +6,7 @@ let
 in {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [
-    emacs
-  ];
+  environment.systemPackages = [ emacs ];
 
   homebrew = {
     enable = true;
@@ -70,13 +68,13 @@ in {
     package = emacs;
   };
 
-  home-manager.users.bastienriviere = {config, pkgs, ...}: {
+  home-manager.users.bastienriviere = { config, pkgs, ... }: {
     programs.emacs = {
       enable = true;
       package = emacs;
     };
 
-    home.sessionPath = ["$HOME/.emacs.d/bin"];
+    home.sessionPath = [ "$HOME/.emacs.d/bin" ];
 
     home.file = {
       ".doom.d" = {
@@ -112,6 +110,14 @@ in {
       pkgs.bat
       pkgs.dogdns
       pkgs.exa
+
+      # Git
+      pkgs.git
+      pkgs.git-ignore
+      pkgs.git-fame
+      pkgs.git-open
+      pkgs.git-trim
+      pkgs.gitleaks
       pkgs.github-cli
 
       # Nix
@@ -144,6 +150,59 @@ in {
         pcd = "pr create -d";
       };
       gitProtocol = "ssh";
+    };
+
+    programs.git = {
+      enable = true;
+      aliases = {
+        cleanup = "trim";
+        co = "checkout";
+        s = "status --branch --short";
+      };
+      attributes = [
+        # TODO:
+        # "*.age diff=age"
+      ];
+      delta = {
+        enable = true;
+        options = {
+          features = "line-numbers decorations";
+          syntax-theme = "Dracula";
+          decorations = {
+
+            commit-decoration-style = "none";
+            file-style = "yellow bold ul";
+            file-decoration-style = "black bold ol";
+            hunk-header-decoration-style = "magenta box";
+          };
+          line-numbers = {
+            line-numbers-minus-style = "#444444";
+            line-numbers-zero-style = "#444444";
+            line-numbers-plus-style = "#444444";
+            line-numbers-left-style = "magenta";
+            line-numbers-right-style = "magenta";
+          };
+        };
+      };
+      extraConfig = {
+        core = {
+          autocrlf = false;
+          eof = "lf";
+        };
+        init.defaultBranch = "main";
+        github.user = "babariviere";
+      };
+      ignores = [
+        ".envrc"
+        ".lsp"
+        ".rebel_readline_history"
+        ".projectile"
+        "*.pem"
+        "*.swp"
+      ];
+      includes = [{ path = "~/.gitconfig.local"; }];
+      userEmail = "babathriviere@gmail.com";
+      userName = "Bastien Riviere";
     };
 
     # TODO: programs.git
@@ -212,13 +271,16 @@ in {
 
       autocd = true;
       defaultKeymap = "viins";
-      history = { expireDuplicatesFirst = true; share = false; };
+      history = {
+        expireDuplicatesFirst = true;
+        share = false;
+      };
 
-      initExtra = let
-        flow = "${inputs.flow.defaultPackage.${pkgs.system}}/bin/flow";
-      in (builtins.readFile ../zshrc) + ''
-        eval "$(${flow} setup $HOME/src --path ${flow})"
-      '';
+      initExtra =
+        let flow = "${inputs.flow.defaultPackage.${pkgs.system}}/bin/flow";
+        in (builtins.readFile ../zshrc) + ''
+          eval "$(${flow} setup $HOME/src --path ${flow})"
+        '';
 
       shellAliases = {
         ls = "${pkgs.exa}/bin/exa";
@@ -233,6 +295,8 @@ in {
 
         dr = "darwin-rebuild";
         drs = "darwin-rebuild switch --flake .#Baba-Mac --keep-going";
+
+        k = "kubectl";
       };
 
       plugins = [

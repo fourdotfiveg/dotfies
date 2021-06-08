@@ -1,20 +1,20 @@
 [user]
-	email = babathriviere@gmail.com
-	name = Bastien Rivière
+  email = babathriviere@gmail.com
+  name = Bastien Rivière
 
 [alias]
   cleanup = trim
   co = checkout
-	s = status --branch --short
+  s = status --branch --short
 
 [include]
   path = ./.gitconfig.local
 
 [core]
   pager = delta
-	autocrlf = false
-	eol = lf
-	excludesfile = /Users/bastienriviere/.gitignore
+  autocrlf = false
+  eol = lf
+  excludesfile = /Users/bastienriviere/.gitignore
 
 [delta]
   # features = side-by-side line-numbers decorations
@@ -37,13 +37,13 @@
 [interactive]
   diffFilter = delta --color-only
 [pull]
-	rebase = false
+  rebase = false
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [init]
-	defaultBranch = master
+  defaultBranch = master
 [github]
-	user = babariviere
+  user = babariviere
