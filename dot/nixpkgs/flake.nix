@@ -28,22 +28,22 @@
         home-manager.useUserPackages = true;
         home-manager.useGlobalPkgs = true;
 
-        nix.gc = {
-          automatic = true;
-          options = "-d --delete-older-than 7d";
+        nix = {
+          binaryCaches =
+            [ "https://cache.nixos.org" "https://srid.cachix.org" ];
+          binaryCachePublicKeys = [
+            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+            "srid.cachix.org-1:MTQ6ksbfz3LBMmjyPh0PLmos+1x+CdtJxA/J2W+PQxI="
+          ];
+          gc = {
+            automatic = true;
+            options = "-d --delete-older-than 7d";
+          };
+          package = pkgs.hiPrio pkgs.nixUnstable;
+          registry = { nixpkgs.flake = nixpkgs; };
+          trustedUsers = [ "babariviere" ];
+          useSandbox = "relaxed";
         };
-
-        # nix.package = inputs.nix.packages."x86_64-darwin".nix.overrideAttrs
-        nix.package = let
-          nix = inputs.nix.packages."${pkgs.system}".nix.overrideAttrs
-            (attrs: {
-              doCheck = false;
-              doInstallCheck = false;
-            });
-        in pkgs.hiPrio nix;
-        nix.useSandbox = "relaxed";
-        nix.registry = { nixpkgs.flake = nixpkgs; };
-        # nix.package = pkgs.nix;
 
         nixpkgs.overlays = let
           nixOverlay = final: prev: {
