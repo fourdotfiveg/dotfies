@@ -69,10 +69,6 @@ in {
   };
 
   home-manager.users.bastienriviere = { config, pkgs, ... }: {
-    programs.emacs = {
-      enable = true;
-      package = emacs;
-    };
 
     home.sessionPath = [ "$HOME/.emacs.d/bin" ];
 
@@ -138,6 +134,13 @@ in {
     home.stateVersion = "21.03";
 
     programs.direnv = { enable = true; };
+
+    programs.emacs = {
+      enable = true;
+      package = emacs;
+    };
+
+    programs.exa.enable = true;
 
     programs.fish = { enable = false; };
 
@@ -208,6 +211,8 @@ in {
     # TODO: programs.htop
 
     programs.nix-index.enable = true;
+
+    programs.ssh = { enable = true; };
 
     programs.zsh = {
       # TODO: write configuration here
